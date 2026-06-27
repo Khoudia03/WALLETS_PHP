@@ -1,0 +1,58 @@
+Les fonctions métiers:
+A- Creer Wallet
+B- Faire Dépôt
+C- Faire Retrait
+D- Lire les Transactions
+E- Quitter
+
+
+
+A- Creer Wallet
+
+1: Saisie Wallet
+1-a:nom du client 
+1-b: telephone(ici on verifie si le numero de telephone existe dans $wallets. si OUI, on l'oblige de saisir un autre numéro sinon on le laisse passer)
+1-c: solde(ici on l'impose à ce que le solde ne doit pas être négatif)
+1-d: code(ici on verifie si le code saisie existe dans $wallets. si OUI, on l'oblige de saisir un autre code sinon on le laisse passer)
+
+2: Enregistrer wallet Creer
+ici on enregistre le wallet Creer
+
+3: Affichage wallets
+ici on affiche tout les wallets qui existe
+
+
+
+
+B-Faire Dépôt
+
+1: Saisie
+1-a: telephone(ici on vérifie si le telephone existe dans $wallets avant de faire un dépôt. Si OUI, on le laisse passer, sinon l'exécution s'arrete et on reaffiche le menu)
+1-b: montant(si le numero est valide et doit pas etre négatif)
+
+2: Enregistrement
+ici on l'enregistre dans la liste des Transactions
+
+3: Affichage
+ici on enregistre le depot
+
+
+C-Faire Retrait
+
+1: Saisie 
+1-a: telephone(ici on vérifie si le telephone existe dans $wallets avant de faire un retrait. Si OUI, on verifie si le solde est supérieur ou égale au montant demandé, si valide on le laisse passer, sinon l'exécution s'arrete et on reaffiche le menu)
+1-b: montant(si le numero est valide, le solde est suffisante et doit pas etre négatif)
+
+2: Enregistrement
+ici on l'enregistre dans la liste des Transactions
+
+3: Affichage
+ici on enregistre le retrait
+
+
+D-Liste Transactions
+ici on affiche tout les transactions des clients dans wallets
+
+
+E-Quitter
+ici on quitte le programme
