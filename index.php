@@ -1,17 +1,19 @@
 <?php
 
+require_once "controller.php";
+
 function menu() {
-    Afficher( "\n ==========Menu Principal==========\n");
-    Afficher( "1. Créer Wallet \n");
-    Afficher( "2. Faire un Dépôt \n");
-    Afficher( "3. Faire un Retrait \n");
-    Afficher( "4. Lire les Transactions \n");
-    Afficher( "0. Quitter  \n");
+    affichage( "\n ==========Menu Principal==========");
+    affichage( "1. Créer Wallet");
+    affichage( "2. Faire un Dépôt");
+    affichage( "3. Faire un Retrait");
+    affichage( "4. Lire les Transactions");
+    affichage( "0. Quitter");
 }
 
 do{
     menu();
-    $choix = readline("Entrez votre choix : \n");
+    $choix = saisie("Entrez votre choix :");
 
         switch ($choix) {
         case 1:
@@ -27,11 +29,11 @@ do{
             break;
 
         case 0:
-            echo "Au Revoir !!! \n";
+            affichage("Au Revoir !!!");
             break;
 
         default:
-            echo "Choix invalide !!! \n";
+            affichage("Choix invalide !!!");
 
         
     }
