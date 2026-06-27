@@ -1,5 +1,7 @@
 <?php
 
+require_once "validator.php";
+
     $wallets = [
     0 => [
         'client'    => 'Mami Cisse',
