@@ -2,7 +2,7 @@
 
 require_once "validator.php";
 
-    $wallets = [
+$wallets = [
     0 => [
         'client'    => 'Mami Cisse',
         'telephone' => 777059828,
@@ -16,121 +16,105 @@ require_once "validator.php";
         'code'      => 9876
     ]
 ];
- 
+
 $transactions = [
     0 => [
+        'type'        => 'depot',
         'montant'     => 500,
+        'frais'       => 0,
         'indexClient' => 0
     ],
     1 => [
+        'type'        => 'retrait',
         'montant'     => -800,
+        'frais'       => 200,
         'indexClient' => 1
     ]
 ];
 
-//Fonction pour les saisies
-function saisie(string $message): string { 
-
+// Fonction pour les saisies
+function saisie(string $message): string {
     return readline($message);
 }
 
-
-//Fonction pour les affichages
+// Fonction pour les affichages
 function affichage(string $message): void {
-     echo "$message \n";
+    echo "$message \n";
 }
 
-
-
-//Fonction pour les deux premiers chiffres du numéro de téléphone
-function preFixe(array $tab, int $position): int {
-        $i = 0;
-        foreach ($tab as $index => $t) {
-            if($i > $position){
-                break;
-            }
-             $tempon[$i] = $t;
-             $i++;   
-        }
+// Fonction pour récupérer les deux premiers caractères du numéro de téléphone
+function preFixe(string $telephone): string {
+    return substr($telephone, 0, 2);
 }
 
-
-//Fonction pour la taille d'une chaine de caractère
- function taille(array $tab): int {
+// Fonction pour la taille d'une chaîne de caractères
+function taille(string $chaine): int {
     $i = 0;
-        foreach ($tab as $index => $t) {
-            $i++;
-        }
-        return $i;
+    while (isset($chaine[$i])) {
+        $i++;
+    }
+    return $i;
 }
 
-
-//Fonction Saisie Wallet
+// Fonction Saisie Wallet
 function saisieWallet(): array {
     global $wallets;
-    $wallet = ['client' => "", 'telephone' => "", 'solde' => 0, 'code' => 0];
+    $wallet = ['client' => "", 'telephone' => 0, 'solde' => 0, 'code' => 0];
     $wallet['client'] = saisie("Veuillez saisir un client : ");
-    
-    do{
+
+    do {
         $telephone = validerTelephone();
-        if(telephoneExiste($wallets, $telephone)){
+        if (telephoneExiste($wallets, $telephone)) {
             affichage("Ce numéro de téléphone est déjà utilisé");
-        }else{
+        } else {
             $wallet['telephone'] = $telephone;
             break;
         }
-    }while(true);
+    } while (true);
 
     $wallet['solde'] = validerSolde();
 
-    do{
+    do {
         $code = validerCode();
-        if(codeExiste($wallets, $code)){
+        if (codeExiste($wallets, $code)) {
             affichage("Ce code existe déjà pour un client");
-        }else{
+        } else {
             $wallet['code'] = $code;
             break;
         }
-    }while(true);
+    } while (true);
 
     return $wallet;
+}
 
-};
-
-
-//Function Saisie Dépot
+// Fonction Saisie Dépôt
 function saisieDepot(): array {
     $telephone = saisie("Entre votre numéro de téléphone : ");
-    $montant = saisie("Entre le montant à déposer : ");
+    $montant   = saisie("Entre le montant à déposer : ");
     return [
-        'telephone' => $telephone,
-        'montant' => $montant
+        'telephone' => (int) $telephone,
+        'montant'   => (int) $montant
     ];
-};
+}
 
-
-//Fonction Saisie Retrait
+// Fonction Saisie Retrait
 function saisieRetrait(): array {
     $telephone = saisie("Entre votre numéro de téléphone : ");
-    $montant = saisie("Entre le montant à retirer : ");
+    $montant   = saisie("Entre le montant à retirer : ");
     return [
-        'telephone' => $telephone,
-        'montant' => $montant
+        'telephone' => (int) $telephone,
+        'montant'   => (int) $montant
     ];
-};
+}
 
-
-//Fonction pour afficher les wallets
+// Fonction pour afficher les wallets
 function afficherWallets(array $wallets): void {
     affichage("\n");
-    for($index = 0; $index < count($wallets); $index++){
+    for ($index = 0; $index < count($wallets); $index++) {
         affichage("Titulaire : " . $wallets[$index]['client']);
         affichage("Téléphone : " . $wallets[$index]['telephone']);
-        affichage("Solde : " . $wallets[$index]['solde'] );
-        affichage("Code : " . $wallets[$index]['code']);
+        affichage("Solde : "     . $wallets[$index]['solde']);
+        affichage("Code : "      . $wallets[$index]['code']);
         affichage("-------------------------------------");
     }
-};
-
-
-?>
+}

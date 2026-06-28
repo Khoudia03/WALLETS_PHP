@@ -13,17 +13,13 @@ function calculerFrais(int $montant): int {
     }
 }
 
-
-//Fonction Chercher Index
-// Vérifier si $wallet['telephone'] existe dans $wallets
+// Fonction Chercher Index
+// Retourne l'index du wallet correspondant au téléphone, ou -1 si introuvable
 function chercherIndex(array $wallets, int $telephone): int {
     foreach ($wallets as $index => $wallet) {
-        if($wallet['telephone'] === $telephone){
+        if ((int) $wallet['telephone'] === $telephone) { 
             return $index;
         }
-
     }
     return -1;
-};
-
-?>
+}

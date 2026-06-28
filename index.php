@@ -3,29 +3,32 @@
 require_once "controller.php";
 require_once "services.php";
 require_once "repository.php";
+require_once "validator.php";
 
-function menu() {
-    affichage( "\n ==========Menu Principal==========");
-    affichage( "1. Créer Wallet");
-    affichage( "2. Faire un Dépôt");
-    affichage( "3. Faire un Retrait");
-    affichage( "4. Lire les Transactions");
-    affichage( "0. Quitter");
+global $wallets, $transactions;
+
+function menu(): void {
+    affichage("\n ==========Menu Principal==========");
+    affichage("1. Créer Wallet");
+    affichage("2. Faire un Dépôt");
+    affichage("3. Faire un Retrait");
+    affichage("4. Lire les Transactions");
+    affichage("0. Quitter");
 }
 
-do{
+do {
     menu();
-    $choix = saisie("Entrez votre choix :");
+    $choix = saisie("Entrez votre choix : ");
 
-        switch ($choix) {
-        case 1:
-            $newWallet = saisirWallet();
+    switch ($choix) {
+        case '1':
+            $newWallet = saisieWallet();
             creerWallet($newWallet);
-            afficherWallet($wallets);
+            afficherWallets($wallets);
             break;
-        
-        case 2:
-            $saisie = saisieDepot();
+
+        case '2':
+            $saisie      = saisieDepot();
             $indexClient = chercherIndex($wallets, $saisie['telephone']);
 
             if ($indexClient === -1) {
@@ -35,8 +38,8 @@ do{
             }
             break;
 
-        case 3:
-            $saisie = saisieRetrait();
+        case '3':
+            $saisie      = saisieRetrait();
             $indexClient = chercherIndex($wallets, $saisie['telephone']);
 
             if ($indexClient === -1) {
@@ -46,25 +49,16 @@ do{
             }
             break;
 
-        case 4:
-            lireTransactions($transactions, $wallets);
+        case '4':
+            lireTransaction($transactions, $wallets);
             break;
 
-        case 0:
+        case '0':
             affichage("Au Revoir !!!");
             break;
 
         default:
             affichage("Choix invalide !!!");
-
-        
     }
 
-}while($choix != 0);
-
-
-
-
-
-
-?>
+} while ($choix !== '0');

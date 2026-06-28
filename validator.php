@@ -2,12 +2,11 @@
 
 require_once "controller.php";
 
-
-//Validation Téléphone
+// Validation Téléphone
 function validerTelephone(): int {
     do {
         $telephone = saisie("Veuillez saisir votre numéro : ");
-        $prefix    = preFixe($telephone, 1);
+        $prefix    = preFixe($telephone); // utilise preFixe() de controller.php
 
         if (taille($telephone) != 9) {
             affichage("Le numéro doit contenir 9 chiffres");
@@ -25,53 +24,46 @@ function validerTelephone(): int {
     } while (true);
 }
 
-
-//Fonction Validation Solde
+// Fonction Validation Solde
 function validerSolde(): int {
-    do{
-        $solde = saisie("Veuillez saisir votre solde de compte : ");
-        if($solde < 0){
+    do {
+        $solde = (int) saisie("Veuillez saisir votre solde de compte : ");
+        if ($solde < 0) {
             affichage("Le solde ne peut pas être négatif");
+        } else {
+            return $solde; // CORRIGÉ : return à l'intérieur du else
         }
-            return $solde;
-    }while(true);
-};
+    } while (true);
+}
 
-//Fonction Validation Code
+// Fonction Validation Code
 function validerCode(): int {
-    do{
+    do {
         $code = saisie("Veuillez saisir votre code secret : ");
-        if(taille($code) != 4){
+        if (taille($code) != 4) {
             affichage("Le code doit contenir exactement 4 chiffres");
+        } else {
+            return (int) $code; // CORRIGÉ : return à l'intérieur du else
         }
-            return $code;
-    }while(true);
-};
+    } while (true);
+}
 
-//Fonction Unicité Téléphone
-function telephoneExiste(array $wallets, string $telephone): bool {
-    foreach($wallets as $wallet){
-        if($wallet['telephone'] == $telephone){
+// Fonction Unicité Téléphone
+function telephoneExiste(array $wallets, int $telephone): bool {
+    foreach ($wallets as $wallet) {
+        if ((int) $wallet['telephone'] === $telephone) { // CORRIGÉ : cast en int pour cohérence de type
             return true;
         }
     }
     return false;
+}
 
-};
-
-
-//Fonction Unicité Code
-function codeExiste(array $wallets, string $code): bool {
-    foreach($wallets as $wallet){
-        if($wallet['code'] === $code){
+// Fonction Unicité Code
+function codeExiste(array $wallets, int $code): bool {
+    foreach ($wallets as $wallet) {
+        if ((int) $wallet['code'] === $code) { // CORRIGÉ : cast en int pour cohérence de type
             return true;
         }
     }
     return false;
-
-};
-
-
-
-
-?>
+}
