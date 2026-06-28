@@ -63,7 +63,7 @@ function lireTransaction(array $transactions, array $wallets): void {
         $client = $wallets[$transaction['indexClient']]['client'];
         $montant = $transaction['montant'];
         $frais   = $transaction['frais'] ?? 0;
-        // CORRIGÉ : utilise le champ 'type' au lieu du signe du montant
+
         $type = ($transaction['type'] === 'depot') ? "Dépôt" : "Retrait";
         affichage("Transaction {$index} - {$type} de " . abs($montant) . " FCFA pour {$client} (Frais : {$frais} FCFA)");
     }

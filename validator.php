@@ -6,7 +6,7 @@ require_once "controller.php";
 function validerTelephone(): int {
     do {
         $telephone = saisie("Veuillez saisir votre numéro : ");
-        $prefix    = preFixe($telephone); // utilise preFixe() de controller.php
+        $prefix    = preFixe($telephone);
 
         if (taille($telephone) != 9) {
             affichage("Le numéro doit contenir 9 chiffres");
@@ -31,7 +31,7 @@ function validerSolde(): int {
         if ($solde < 0) {
             affichage("Le solde ne peut pas être négatif");
         } else {
-            return $solde; // CORRIGÉ : return à l'intérieur du else
+            return $solde;
         }
     } while (true);
 }
@@ -43,7 +43,7 @@ function validerCode(): int {
         if (taille($code) != 4) {
             affichage("Le code doit contenir exactement 4 chiffres");
         } else {
-            return (int) $code; // CORRIGÉ : return à l'intérieur du else
+            return (int) $code;
         }
     } while (true);
 }
@@ -51,7 +51,7 @@ function validerCode(): int {
 // Fonction Unicité Téléphone
 function telephoneExiste(array $wallets, int $telephone): bool {
     foreach ($wallets as $wallet) {
-        if ((int) $wallet['telephone'] === $telephone) { // CORRIGÉ : cast en int pour cohérence de type
+        if ((int) $wallet['telephone'] === $telephone) {
             return true;
         }
     }
@@ -61,7 +61,7 @@ function telephoneExiste(array $wallets, int $telephone): bool {
 // Fonction Unicité Code
 function codeExiste(array $wallets, int $code): bool {
     foreach ($wallets as $wallet) {
-        if ((int) $wallet['code'] === $code) { // CORRIGÉ : cast en int pour cohérence de type
+        if ((int) $wallet['code'] === $code) {
             return true;
         }
     }
